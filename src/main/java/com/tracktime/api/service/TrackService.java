@@ -1,12 +1,13 @@
 package com.tracktime.api.service;
 
-import com.tracktime.api.model.Track;
+import com.tracktime.api.dto.TrackDto;
+import com.tracktime.api.mapper.TrackMapper;
 import com.tracktime.api.repository.TrackRepository;
+import com.tracktime.api.web.exception.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -14,15 +15,21 @@ public class TrackService {
 
     private final TrackRepository trackRepository;
 
-    public List<Track> getAllTracks() {
-        return trackRepository.findAll();
+    public List<TrackDto> getAllTracks() {
+        return trackRepository.findAll().stream()
+                .map(TrackMapper::toDto)
+                .toList();
     }
 
-    public Optional<Track> getTrackById(String id) {
-        return trackRepository.findById(id);
+    public TrackDto getTrackById(String id) {
+        return trackRepository.findById(id)
+                .map(TrackMapper::toDto)
+                .orElseThrow(() -> new ResourceNotFoundException("Track", id));
     }
 
-    public List<Track> getTracksByRegion(String region) {
-        return trackRepository.findByRegion(region);
+    public List<TrackDto> getTracksByRegion(String region) {
+        return trackRepository.findByRegion(region).stream()
+                .map(TrackMapper::toDto)
+                .toList();
     }
 }

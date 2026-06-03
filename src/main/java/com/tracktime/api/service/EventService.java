@@ -1,13 +1,20 @@
 package com.tracktime.api.service;
 
+import com.tracktime.api.dto.EventDto;
+import com.tracktime.api.dto.shared.PagedResponse;
+import com.tracktime.api.mapper.EventMapper;
 import com.tracktime.api.model.Event;
 import com.tracktime.api.repository.EventRepository;
+import com.tracktime.api.web.exception.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.time.OffsetDateTime;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -15,31 +22,47 @@ public class EventService {
 
     private final EventRepository eventRepository;
 
-    public List<Event> getAllEvents() {
-        return eventRepository.findAll();
+    public EventDto getEventById(Long id) {
+        return eventRepository.findById(id)
+                .map(EventMapper::toDto)
+                .orElseThrow(() -> new ResourceNotFoundException("Event", id.toString()));
     }
 
-    public Optional<Event> getEventById(Long id) {
-        return eventRepository.findById(id);
+    public PagedResponse<EventDto> getAllEvents(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by("startDatetime").ascending());
+        Page<Event> result = eventRepository.findAll(pageable);
+        return toPagedResponse(result);
     }
 
-    public List<Event> getEventsByTrackId(String trackId) {
-        return eventRepository.findByTrackId(trackId);
+    public PagedResponse<EventDto> getEventsByTrackId(String trackId, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by("startDatetime").ascending());
+        Page<Event> result = eventRepository.findByTrackId(trackId, pageable);
+        return toPagedResponse(result);
     }
 
-    public List<Event> getEventsByOrganiserId(String organiserId) {
-        return eventRepository.findByOrganiserId(organiserId);
+    public List<EventDto> getEventsByOrganiserId(String organiserId) {
+        return eventRepository.findByOrganiserId(organiserId).stream()
+                .map(EventMapper::toDto)
+                .toList();
     }
 
-    public List<Event> getEventsByDateRange(OffsetDateTime from, OffsetDateTime to) {
-        return eventRepository.findByStartDatetimeBetween(from, to);
+    public List<EventDto> getEventsByTrackAndDateRange(String trackId, OffsetDateTime from, OffsetDateTime to) {
+        return eventRepository.findByTrackIdAndStartDatetimeBetween(trackId, from, to).stream()
+                .map(EventMapper::toDto)
+                .toList();
     }
 
-    public List<Event> getEventsByTrackAndDateRange(String trackId, OffsetDateTime from, OffsetDateTime to) {
-        return eventRepository.findByTrackIdAndStartDatetimeBetween(trackId, from, to);
-    }
-
-    public Optional<Event> getEventByBookingUrl(String bookingUrl) {
-        return eventRepository.findByBookingUrl(bookingUrl);
+    private PagedResponse<EventDto> toPagedResponse(Page<Event> page) {
+        List<EventDto> content = page.getContent().stream()
+                .map(EventMapper::toDto)
+                .toList();
+        return new PagedResponse<>(
+                content,
+                page.getNumber(),
+                page.getSize(),
+                page.getTotalElements(),
+                page.getTotalPages(),
+                page.isLast()
+        );
     }
 }
