@@ -16,7 +16,7 @@ public class TrackService {
     private final TrackRepository trackRepository;
 
     public List<TrackDto> getAllTracks() {
-        return trackRepository.findAll().stream()
+        return trackRepository.findAllWithLayouts().stream()
                 .map(TrackMapper::toDto)
                 .toList();
     }
