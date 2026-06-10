@@ -10,3 +10,9 @@ services:
       POSTGRES_DB: ${DB_NAME}
     ports:
       - "${DB_PORT}:5432"
+    volumes:
+      - paddock_db_data:/var/lib/postgresql/data
+
+volumes:
+  paddock_db_data:
+    external: true

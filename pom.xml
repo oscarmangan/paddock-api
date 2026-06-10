@@ -12,7 +12,7 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.paddock</groupId>
-	<artifactId>tracktime-api</artifactId>
+	<artifactId>paddock-api</artifactId>
 	<version>0.1.0-SNAPSHOT</version>
 	<name />
 	<description />

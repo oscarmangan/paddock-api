@@ -1,8 +1,8 @@
-# TrackTime API — Project Context
+# Paddock API — Project Context
 
 ## What this project is
 
-TrackTime is a read-only REST API for UK motorsport track day events. It exposes data about racing circuits, track layouts, event organisers, and individual track day events (dates, sessions, noise limits, booking links). The intended consumer is a frontend app (likely a Vite-based SPA given the CORS config for ports 5173/4173).
+Paddock is a read-only REST API for UK motorsport track day events. It exposes data about racing circuits, track layouts, event organisers, and individual track day events (dates, sessions, noise limits, booking links). The intended consumer is a frontend app (likely a Vite-based SPA given the CORS config for ports 5173/4173).
 
 ## Tech stack
 
@@ -16,7 +16,7 @@ TrackTime is a read-only REST API for UK motorsport track day events. It exposes
 
 ## Domain model
 
-Four entities, all in the `tracktime` schema:
+Four entities, all in the `paddock` schema:
 
 | Entity | Key fields |
 |---|---|
@@ -34,7 +34,7 @@ IDs for Track, TrackLayout, and Organiser are short human-readable strings (e.g.
 ## Package layout
 
 ```
-com.tracktime.api
+com.paddock.api
 ├── model/          # JPA entities (Track, TrackLayout, Organiser, Event)
 ├── dto/            # Java Records for API responses
 │   └── shared/     # PagedResponse<T> generic wrapper
@@ -83,10 +83,10 @@ Requires a `.env` file at project root (not committed). Default values:
 ```
 DB_HOST=localhost
 DB_PORT=5432
-DB_NAME=tracktime_db
+DB_NAME=paddock_db
 DB_USER=admin
-DB_PASSWORD=tracktime
-DB_SCHEMA=tracktime
+DB_PASSWORD=paddock
+DB_SCHEMA=paddock
 ```
 
 Start the database: `docker compose up -d`  
