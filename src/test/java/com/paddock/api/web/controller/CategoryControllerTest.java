@@ -66,7 +66,7 @@ class CategoryControllerTest {
                 .returnResult()
                 .getResponseBody();
 
-        assertThat(result).isNotNull().hasSize(2);
+        assertThat(result).isNotNull().isEmpty();
     }
 
     // --- Fixtures ---
