@@ -23,7 +23,7 @@ import static org.mockito.Mockito.when;
 
 @WebMvcTest(TrackController.class)
 @AutoConfigureRestTestClient
-public class TrackControllerTest {
+class TrackControllerTest {
 
     @Autowired
     RestTestClient client;

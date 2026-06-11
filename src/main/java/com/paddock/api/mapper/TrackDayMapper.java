@@ -5,6 +5,8 @@ import com.paddock.api.model.TrackDay;
 
 public class TrackDayMapper {
 
+    private TrackDayMapper() {}
+
     public static TrackDayDto toDto(TrackDay trackDay) {
         return new TrackDayDto(
                 trackDay.getId(),

@@ -1,0 +1,1 @@
+ALTER TABLE paddock.user RENAME TO users;

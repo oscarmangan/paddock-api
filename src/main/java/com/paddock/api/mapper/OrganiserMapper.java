@@ -5,6 +5,8 @@ import com.paddock.api.model.Organiser;
 
 public class OrganiserMapper {
 
+    private OrganiserMapper() {}
+
     public static OrganiserDto toDto(Organiser organiser) {
         return new OrganiserDto(
                 organiser.getId(),

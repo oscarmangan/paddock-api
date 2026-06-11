@@ -9,6 +9,8 @@ import java.util.List;
 
 public class TrackMapper {
 
+    private TrackMapper() {}
+
     public static TrackLayoutDto toLayoutDto(TrackLayout layout) {
         return new TrackLayoutDto(
                 layout.getId(),
