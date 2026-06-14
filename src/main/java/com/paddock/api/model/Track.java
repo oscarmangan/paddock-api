@@ -27,6 +27,15 @@ public class Track {
     @Column(name = "track_map_url")
     private String trackMapUrl;
 
+    @Column(name = "locale")
+    private String locale;
+
+    @Column(name = "latitude", columnDefinition = "numeric(9,6)")
+    private Double latitude;
+
+    @Column(name = "longitude", columnDefinition = "numeric(9,6)")
+    private Double longitude;
+
     @CreationTimestamp
     @Column(name = "created_at", updatable = false)
     private OffsetDateTime createdAt;

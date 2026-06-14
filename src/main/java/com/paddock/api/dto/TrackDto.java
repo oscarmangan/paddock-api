@@ -7,6 +7,9 @@ public record TrackDto(
         String id,
         String name,
         String region,
+        String locale,
+        Double latitude,
+        Double longitude,
         String trackMapUrl,
         OffsetDateTime createdAt,
         List<TrackLayoutDto> layouts

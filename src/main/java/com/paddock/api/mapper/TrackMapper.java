@@ -28,6 +28,9 @@ public class TrackMapper {
                 track.getId(),
                 track.getName(),
                 track.getRegion(),
+                track.getLocale(),
+                track.getLatitude(),
+                track.getLongitude(),
                 track.getTrackMapUrl(),
                 track.getCreatedAt(),
                 layouts
