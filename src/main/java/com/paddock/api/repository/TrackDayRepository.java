@@ -21,5 +21,5 @@ public interface TrackDayRepository extends JpaRepository<TrackDay, Long> {
 
     List<TrackDay> findByOrganiserId(String organiserId);
 
-    List<TrackDay> findByTrackIdAndStartDatetimeBetween(String trackId, OffsetDateTime from, OffsetDateTime to);
+    List<TrackDay> findByTrackIdAndStartDatetimeBetweenOrderByStartDatetimeAsc(String trackId, OffsetDateTime from, OffsetDateTime to);
 }

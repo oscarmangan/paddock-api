@@ -48,6 +48,6 @@ public class TrackDayController {
             @PathVariable String trackId,
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) OffsetDateTime from,
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) OffsetDateTime to) {
-        return ResponseEntity.ok(trackDayService.getTrackDaysByTrackAndDateRange(trackId, from, to));
+        return ResponseEntity.ok(trackDayService.getTrackDaysByTrackAndDateRangeOrderedByStartTime(trackId, from, to));
     }
 }

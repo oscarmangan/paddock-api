@@ -46,8 +46,8 @@ public class TrackDayService {
                 .toList();
     }
 
-    public List<TrackDayDto> getTrackDaysByTrackAndDateRange(String trackId, OffsetDateTime from, OffsetDateTime to) {
-        return trackDayRepository.findByTrackIdAndStartDatetimeBetween(trackId, from, to).stream()
+    public List<TrackDayDto> getTrackDaysByTrackAndDateRangeOrderedByStartTime(String trackId, OffsetDateTime from, OffsetDateTime to) {
+        return trackDayRepository.findByTrackIdAndStartDatetimeBetweenOrderByStartDatetimeAsc(trackId, from, to).stream()
                 .map(TrackDayMapper::toDto)
                 .toList();
     }

@@ -168,7 +168,7 @@ class TrackDayControllerTest {
         var from = OffsetDateTime.parse("2026-06-01T00:00:00Z");
         var to = OffsetDateTime.parse("2026-06-30T23:59:59Z");
 
-        when(trackDayService.getTrackDaysByTrackAndDateRange("TR_3", from, to))
+        when(trackDayService.getTrackDaysByTrackAndDateRangeOrderedByStartTime("TR_3", from, to))
                 .thenReturn(List.of(msvBrandsHatchTrackDay()));
 
         var result = client.get()
